@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-
-dotenv.config();
-
 const connectDb = require("./config/db");
 const activitiesRouter = require("./routes/activities");
 const teachersRouter = require("./routes/teachers");
+const authRouter = require("./routes/auth");
+const { requireAuth } = require("./middleware/auth");
+
+dotenv.config();
 
 const app = express();
 
@@ -32,8 +33,9 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-app.use("/api/activities", activitiesRouter);
-app.use("/api/teachers", teachersRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/activities", requireAuth, activitiesRouter);
+app.use("/api/teachers", requireAuth, teachersRouter);
 
 connectDb()
   .then(() => {
