@@ -10,8 +10,6 @@ activity data used by the dashboard client.
 - Teacher summary counts (lessons, quizzes, assessments)
 - Weekly activity series per teacher
 - Per-teacher subject and class breakdowns
-- CSV import helper that posts rows to the API
-
 
 ## Requirements
 
@@ -141,3 +139,4 @@ curl -X POST http://localhost:4000/api/activities \
 - `src/models/Activity.js` — Mongoose schema and indexes
 - `src/routes/activities.js` — POST activity endpoint
 - `src/routes/teachers.js` — summary/weekly/details endpoints
+
