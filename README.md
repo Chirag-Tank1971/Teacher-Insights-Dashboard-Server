@@ -9,13 +9,15 @@ activity data used by the dashboard client.
 - POST activities with deduplication (unique compound index)
 - Teacher summary counts (lessons, quizzes, assessments)
 - Weekly activity series per teacher
+- JWT Authentication - Secure access with access and refresh tokens
 - Per-teacher subject and class breakdowns
 
 ## Requirements
 
 - Node.js 18+ (or compatible)
 - MongoDB accessible via a connection URI
-
+- JWT - Token-based authentication
+- bcrypt - Password hashing
 ## Quick start
 
 1. Install dependencies
@@ -48,11 +50,15 @@ The server uses `dotenv` and expects these variables (example `.env`):
 MONGODB_URI=mongodb+srv://user:password@host/dbname
 PORT=4000
 ALLOWED_ORIGINS=http://localhost:3000
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_ACCESS_EXPIRY=7days
 ```
 
 - `MONGODB_URI` (required): MongoDB connection string.
 - `PORT` (optional): TCP port for the Express server (default `4000`).
 - `ALLOWED_ORIGINS` (optional): comma-separated origins allowed by CORS. Use `*` to allow all.
+- `JWT_SECRET`=your-super-secret-jwt-key-change-this-in-production
+- `JWT_ACCESS_EXPIRY`=7days
 
 ## API
 
@@ -139,4 +145,5 @@ curl -X POST http://localhost:4000/api/activities \
 - `src/models/Activity.js` — Mongoose schema and indexes
 - `src/routes/activities.js` — POST activity endpoint
 - `src/routes/teachers.js` — summary/weekly/details endpoints
+
 
